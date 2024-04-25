@@ -33,13 +33,17 @@ jobs:
 
     - name: Run tests
       run: ./mvnw test
-
+      
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        projectKey: <test-clinic_testthisclinic>
-        organization: <test-clinic>
-        token: ${{ secrets.SONAR_TOKEN }}
+        args: >
+          -Dsonar.projectKey=<test-clinic_testthisclinic>
+          -Dsonar.organization=<test-clinic>
+          -Dsonar.sources=.
+          -Dsonar.host.url=https://sonarcloud.io
         
     - name: Package
       run: ./mvnw package
