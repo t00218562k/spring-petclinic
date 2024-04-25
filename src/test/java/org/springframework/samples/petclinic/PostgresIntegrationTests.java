@@ -15,6 +15,7 @@
  */
 
 package org.springframework.samples.petclinic;
+
 import org.junit.jupiter.api.Disabled;
 
 import static org.assertj.core.api.Assertions.assertThat;
