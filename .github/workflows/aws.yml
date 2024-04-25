@@ -67,7 +67,9 @@ jobs:
         service: myapp-service
         cluster: ibi_pet_clinic
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-
+      env:
+        AWS_REGION: us-east-1 
+        
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
