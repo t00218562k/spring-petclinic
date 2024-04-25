@@ -34,6 +34,9 @@ jobs:
     - name: Run tests
       run: ./mvnw test
 
+    - name: Package
+      run: ./mvnw clean package
+
     - name: Build Docker Image
       run: docker build -t rizlaman401/spring-petclinic:${{ github.sha }} .
 
@@ -46,9 +49,6 @@ jobs:
     - name: Push Docker Image
       run: docker push rizlaman401/spring-petclinic:${{ github.sha }}
         
-    - name: Package
-      run: ./mvnw package
-
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
