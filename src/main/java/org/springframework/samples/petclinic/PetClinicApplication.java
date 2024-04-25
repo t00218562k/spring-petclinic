@@ -25,7 +25,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import java.util.Locale;
 
 /**
- * PetClinic Spring Boot Application. dummy comments
+ * PetClinic Spring Boot Application. dummy commentse
  *
  * @author Dave Syer
  *
