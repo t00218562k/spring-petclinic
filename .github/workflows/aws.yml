@@ -57,7 +57,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: deploy/task-definition.json  # Update this path as necessary
+        task-definition: task-definition.json  # Update this path as necessary
         container-name: myapp
         image: 402319074183.dkr.ecr.us-east-1.amazonaws.com/petclinic:latest
 
