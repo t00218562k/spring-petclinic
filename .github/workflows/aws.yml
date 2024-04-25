@@ -37,7 +37,11 @@ jobs:
     # Log in to Amazon ECR
     - name: Log in to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v1
-
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'us-east-1'  
+        
     # Tag Docker Image for ECR
     - name: Tag Docker Image for ECR
       run: docker tag myapp:latest 402319074183.dkr.ecr.us-east-1.amazonaws.com/petclinic:latest
