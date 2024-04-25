@@ -57,7 +57,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: deploy/task-definition.json  # Update this path as necessary
+        task-definition: task-definition.json  # Update this path as necessary
         container-name: myapp
         image: 402319074183.dkr.ecr.us-east-1.amazonaws.com/petclinic:latest
 
@@ -67,7 +67,11 @@ jobs:
         service: myapp-service
         cluster: ibi_pet_clinic
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-1 
+        
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
