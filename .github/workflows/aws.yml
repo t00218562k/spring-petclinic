@@ -19,6 +19,9 @@ jobs:
       with:
         java-version: '21.0.2'
         distribution: 'temurin'
+
+    - name: Package
+      run: ./mvnw clean package
         
     - name: Build Docker Image
       run: docker build -t myapp:latest .
@@ -40,7 +43,7 @@ jobs:
 
     # Tag Docker Image for ECR
     - name: Tag Docker Image for ECR
-      run: docker tag myapp:latest [your-ecr-repository-uri]:latest
+      run: docker tag myapp:latest 402319074183.dkr.ecr.us-east-1.amazonaws.com/petclinic:latest
 
     # Push Docker Image to ECR
     - name: Push Docker Image to ECR
