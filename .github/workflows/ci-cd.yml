@@ -48,6 +48,12 @@ jobs:
 
     - name: Push Docker Image
       run: docker push rizlaman401/spring-petclinic:latest
+
+    - name: Update ECS Service
+      run: aws ecs update-service --cluster test_case_ibi_k_pet_clinic --service Petclinic --force-new-deployment
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
