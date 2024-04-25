@@ -19,12 +19,9 @@ jobs:
       with:
         java-version: '21.0.2'
         distribution: 'temurin'
-
-    - name: Package
-      run: ./mvnw clean package
-        
+      
     - name: Build Docker Image
-      run: docker build -t myapp:latest .
+      run:  docker build -t rizlaman401/spring-petclinic:latest .
 
     # Log in to Docker Hub
     - name: Log in to Docker Hub
