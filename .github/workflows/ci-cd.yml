@@ -28,17 +28,17 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-m2
           
-    - name: Build with Maven
-      run: ./mvnw clean install
+    #- name: Build with Maven
+      #run: ./mvnw clean install
 
-    - name: Run tests
-      run: ./mvnw test
+    #- name: Run tests
+      #run: ./mvnw test
 
-    - name: Package
-      run: ./mvnw clean package
+    #- name: Package
+      #run: ./mvnw clean package
 
-    - name: Build Docker Image
-      run: docker build -t rizlaman401/spring-petclinic:latest .
+    #- name: Build Docker Image
+      #run: docker build -t rizlaman401/spring-petclinic:latest .
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
@@ -46,17 +46,17 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Push Docker Image
-      run: docker push rizlaman401/spring-petclinic:latest
+    #- name: Push Docker Image
+      #run: docker push rizlaman401/spring-petclinic:latest
 
     - name: Update ECS Service
-      run: aws ecs update-service --cluster test_case_ibi_k_pet_clinic --service Petclinic --force-new-deployment
+      run: aws ecs update-service --cluster test_case_ibi_k_pet_clinic --service Petclinic --force-new-deployment --debug
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: packaged-artifacts
-        path: target/packaged-artifacts.jar
+    #- name: Upload Artifacts
+      #uses: actions/upload-artifact@v2
+      #with:
+        #name: packaged-artifacts
+        #path: target/packaged-artifacts.jar
