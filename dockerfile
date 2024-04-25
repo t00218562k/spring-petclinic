@@ -1,10 +1,10 @@
-FROM maven:3.8.6-openjdk-11 as builder
+FROM eclipse-temurin:21-jdk as builder
+
 WORKDIR /app
 COPY . .
-RUN ./mvnw clean install -DskipTests
+RUN ./mvnw clean package
 
-
-
+# Stage 2: Setup the runtime container
 FROM eclipse-temurin:21-jre
 COPY --from=builder /app/target/*.jar /app/spring-petclinic.jar
 WORKDIR /app
