@@ -1,0 +1,11 @@
+FROM openjdk:11-jdk
+WORKDIR /app
+COPY . /app
+
+
+RUN ./mvnw clean install
+EXPOSE 8080
+ENV NAME World
+
+
+CMD ["./mvnw", "spring-boot:run"]
