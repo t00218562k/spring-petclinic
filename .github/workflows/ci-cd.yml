@@ -44,7 +44,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker Image
-      run: docker push spring-petclinic:${{ github.sha }}
+      run: docker push rizlaman401/spring-petclinic:${{ github.sha }}
         
     - name: Package
       run: ./mvnw package
