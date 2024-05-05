@@ -75,4 +75,4 @@ jobs:
     
     # Release the image
     - name: Release the Docker Image
-      run: heroku container:release web --app <your-heroku-app>
+      run: heroku container:release web --app pet-clinic
