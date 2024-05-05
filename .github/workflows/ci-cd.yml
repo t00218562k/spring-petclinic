@@ -51,15 +51,26 @@ jobs:
 
     - name: Install Heroku CLI
       run: curl https://cli-assets.heroku.com/install.sh | sh
-
+      
+    - name: Heroku Login
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+      
+    - name: Authenticate Heroku CLI
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        echo $HEROKU_API_KEY | heroku auth:token
+      
     - name: Login to Heroku Container Registry
       run: heroku container:login
-
-    - name: Tag Docker Image
-      run: docker tag rizlaman401/spring-petclinic:latest registry.heroku.com/pet-clinic/web
-
+      
     - name: Push Docker Image to Heroku
-      run: docker push registry.heroku.com/pet-clinic/web
-
-    - name: Release Docker Image on Heroku
-      run: heroku container:release web --app pet-clinic
+      run: |
+        docker tag rizlaman401/spring-petclinic:latest registry.heroku.com/<your-heroku-app>/web
+        docker push registry.heroku.com/pet-clinic/web
+    
+    # Release the image
+    - name: Release the Docker Image
+      run: heroku container:release web --app <your-heroku-app>
