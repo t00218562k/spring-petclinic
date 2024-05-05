@@ -64,6 +64,8 @@ jobs:
         echo $HEROKU_API_KEY | heroku auth:token
       
     - name: Login to Heroku Container Registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:login
       
     - name: Push Docker Image to Heroku
