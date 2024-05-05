@@ -56,18 +56,25 @@ jobs:
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku auth:token
-
+      
+    - name: Authenticate Heroku CLI
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        echo $HEROKU_API_KEY | heroku auth:token
+  
     - name: Create heroku.yml
       run: |
         echo "build:" > heroku.yml
         echo "  docker:" >> heroku.yml
         echo "    web: rizlaman401/spring-petclinic:latest" >> heroku.yml
 
+    - name: Set Heroku Stack
+      run: heroku stack:set container --app pet-clinic
+    
     - name: Deploy to Heroku
       run: |
-        heroku stack:set container --app pet-clinic
-        git add heroku.yml
-        git commit -m "Add heroku.yml for Heroku deployment"
+        heroku git:remote -a pet-clinic
         git push heroku master
         
     - name: Upload Artifacts
