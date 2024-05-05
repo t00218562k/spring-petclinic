@@ -70,7 +70,7 @@ jobs:
       
     - name: Push Docker Image to Heroku
       run: |
-        docker tag rizlaman401/spring-petclinic:latest registry.heroku.com/<your-heroku-app>/web
+        docker tag rizlaman401/spring-petclinic:latest registry.heroku.com/pet-clinic/web
         docker push registry.heroku.com/pet-clinic/web
     
     # Release the image
