@@ -62,20 +62,19 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
         echo $HEROKU_API_KEY | heroku auth:token
-  
-    - name: Create heroku.yml
-      run: |
-        echo "build:" > heroku.yml
-        echo "  docker:" >> heroku.yml
-        echo "    web: rizlaman401/spring-petclinic:latest" >> heroku.yml
+        
+    - name: Login to Heroku Container Registry
+      run: heroku container:login
 
-    - name: Set Heroku Stack
-      run: heroku stack:set container --app pet-clinic
-    
-    - name: Deploy to Heroku
-      run: |
-        heroku git:remote -a pet-clinic
-        git push heroku main
+    - name: Tag Docker Image
+      run: docker tag rizlaman401/spring-petclinic:latest registry.heroku.com/pet-clinic/web
+
+    - name: Push Docker Image to Heroku
+      run: docker push registry.heroku.com/pet-clinic/web
+
+    - name: Release Docker Image on Heroku
+      run: heroku container:release web --app pet-clinic
+
         
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
