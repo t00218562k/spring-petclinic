@@ -48,6 +48,27 @@ jobs:
 
     - name: Push Docker Image
       run: docker push rizlaman401/spring-petclinic:latest
+      
+    - name: Install Heroku CLI
+      run: curl https://cli-assets.heroku.com/install.sh | sh
+    
+    - name: Heroku Login
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku auth:token
+
+    - name: Create heroku.yml
+      run: |
+        echo "build:" > heroku.yml
+        echo "  docker:" >> heroku.yml
+        echo "    web: rizlaman401/spring-petclinic:latest" >> heroku.yml
+
+    - name: Deploy to Heroku
+      run: |
+        heroku stack:set container --app pet-clinic
+        git add heroku.yml
+        git commit -m "Add heroku.yml for Heroku deployment"
+        git push heroku master
         
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
